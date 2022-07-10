@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EcommerceAppMobile.Pages.AddToCart">
+    <ContentPage.Content>
+         <StackLayout HorizontalOptions="Center">
+
+            <Label Text="Add Product To Cart" HorizontalTextAlignment="Center" FontSize="24"/>
+            <Label x:Name="prodName" FontSize="15"/>
+            <Label x:Name="prodDescription" FontSize="15"/>
+            <Label x:Name="prodPrice" FontSize="15"/>
+            <Label x:Name="prodInventoryCount" FontSize="15"/>
+            <Label x:Name="prodAmountSliderCount" FontSize="17" />
+            <Slider x:Name="prodAmountSlider"
+                    Value="1"
+                    Minimum="0"
+                    Maximum="150"
+                    ValueChanged="Amount_Changed"/>
+                       
+            <Button Text="Add"
+                     x:Name="AddButton"
+                     Clicked="Add_Clicked"/>
+
+             <Button Text="Back"
+                     x:Name="backButton"
+                     Clicked="Back_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+
