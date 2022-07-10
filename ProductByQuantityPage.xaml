@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="EcommerceAppMobile.Pages.ProductByQuantityPage">
+     <ContentPage.Content>
+            <StackLayout HorizontalOptions="Center">
+            <Label Text="Add New Inventory Product" HorizontalTextAlignment="Center" FontSize="20"/>
+   
+         
+            <Label Text="Name:"/>
+            <Entry Text="{Binding Name}"/>
+
+            <Label Text="Price"/>
+            <Entry Text="{Binding Price}"/>
+
+            <Label Text="Description"/>
+            <Entry Text="{Binding Description}"/>
+
+            <Label Text="Bogo"/>
+            <Switch IsToggled="{Binding bogo}"/>
+              
+            <Label Text="Quantity"/>
+            <Label x:Name="Quantitynumber" FontSize="25" HorizontalTextAlignment="Center"/>
+             <Slider x:Name="QuantitySlider"
+                    Value="1"
+                    Minimum="0"
+                    Maximum="100"
+                    ValueChanged="Quantity_Changed"/>
+            
+         
+
+            <Button Text="Add"
+                     x:Name="addButton"
+                     Clicked="Add_Clicked"/>         
+            
+             <Button Text="Back"
+                     x:Name="backCartButton"
+                     Clicked="Back_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
