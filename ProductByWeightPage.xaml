@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EcommerceAppMobile.Pages.ProductByWeightPage">
+   
+    <ContentPage.Content>
+
+          <StackLayout HorizontalOptions="Center">
+            <Label Text="Name:"/>
+            <Entry Text="{Binding Name}"/>
+
+            <Label Text="Price"/>
+            <Entry Text="{Binding Price}"/>
+
+            <Label Text="Description"/>
+            <Entry Text="{Binding Description}"/>
+
+            <Label Text="Bogo"/>
+            <Switch IsToggled="{Binding Bogo}"/>
+              
+            <Label Text="Weight"/>
+            <Label x:Name="Weightnumber" FontSize="25" HorizontalTextAlignment="Center"/>
+             <Slider x:Name="WeightSlider"
+                    Value="1"
+                    Minimum="0"
+                    Maximum="150"
+                    ValueChanged="Weight_Changed"/>
+            
+         
+
+            <Button Text="Add"
+                     x:Name="addButton"
+                     Clicked="Add_Clicked"/>         
+            
+             <Button Text="Back"
+                     x:Name="backCartButton"
+                     Clicked="Back_Clicked"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
+
