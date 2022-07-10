@@ -1,0 +1,158 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Library.ECommerceApp;
+using Library.ECommerceApp.Models;
+using Xamarin.Forms;
+
+namespace EcommerceAppMobile.Pages
+{
+    public partial class RemoveFromCart : ContentPage
+    {
+        Product prod;
+        HomePage Home;
+
+        ObservableCollection<Product> products;
+        
+
+        public RemoveFromCart(ObservableCollection<Product> p, Product product, double number, HomePage home)
+        {
+            InitializeComponent();
+
+            prodName.Text = product.Name;
+            prodPrice.Text = "Price Per: $" + product.Price;
+            prodamount.Text = "In Cart: " + number.ToString();
+            prodDescription.Text = product.Description;
+            amountSlide.Minimum = 1;
+            amountSlide.Maximum = (int)number;
+            removeSlide.Text = "Removing: 1";
+            products = p;
+            prod = product;
+            Home = home;
+
+        }
+
+        private void Slide_Changed(object sender, ValueChangedEventArgs e)
+        {
+            var newStep = Math.Round(e.NewValue / 1.0);
+
+            amountSlide.Value = newStep * 1.0;
+            removeSlide.Text = "Removing: " + amountSlide.Value;
+        }
+
+        private void Remove_Clicked(Object sender, System.EventArgs e)
+        {
+            string str = removeSlide.Text;
+            var result = str.Substring(str.LastIndexOf(" ") + 1);
+
+            var addProduct = new Product();
+
+            if (prod is ProductByQuantity)
+            {
+                ProductByQuantity temp = prod as ProductByQuantity;
+                var addProduc = new ProductByQuantity();
+
+
+                addProduc.Price = temp.Price;
+                addProduc.Quantity = (int)amountSlide.Value;
+                addProduc.Name = temp.Name;
+                addProduc.Description = temp.Description;
+                addProduc.Id = temp.Id;
+
+
+                Home.Inventory.Add(addProduc);
+                if (avaliable(addProduc) != -1)
+                {
+                    adjust((int)amountSlide.Value);
+                    Product temp1 = Home.Inventory[avaliable(addProduc)];
+                    (temp1 as ProductByQuantity).Quantity += ((int)amountSlide.Value);
+                    Home.Inventory[avaliable(addProduc)] = temp1;
+                }
+                else
+                {
+                    adjust((int)amountSlide.Value);
+                    Home.Inventory.Add(addProduc);
+                }
+            }
+            else
+            {
+                ProductByWeight temp = prod as ProductByWeight;
+                var addProduc = new ProductByWeight();
+                addProduc.Price = temp.Price;
+                addProduc.Weight = (double)amountSlide.Value;
+                addProduc.Name = temp.Name;
+                addProduc.Description = temp.Description;
+                addProduc.Id = temp.Id;
+                products.Add(addProduc);
+
+                if (avaliable(addProduc) != -1)
+                {
+                    adjust((int)amountSlide.Value);
+                    Product temp1 = Home.Inventory[avaliable(addProduc)];
+                    (temp1 as ProductByWeight).Weight += ((int)amountSlide.Value);
+                    Home.Inventory[avaliable(addProduc)] = temp1;
+                }
+                else
+                {
+                    adjust((int)amountSlide.Value);
+                    Home.Inventory.Add(addProduc);
+                }
+            }
+        }
+
+        private void Back_Clicked(Object sender, System.EventArgs e) { Navigation.PopModalAsync(); }
+
+        private int avaliable(Product prod)
+        {
+
+            int count = 0;
+
+            foreach (Product item in Home.Inventory)
+            {
+                if (item.Name == prod.Name) { return count; }
+                count += 1;
+            }
+
+            return -1;
+
+        }
+
+        private bool adjust(int items)
+        {
+            if (prod is ProductByQuantity)
+            {
+                if ((prod as ProductByQuantity).Quantity - items >0)
+                {
+                    if ((prod as ProductByQuantity).Quantity == 0)
+                    {
+                        amountSlide.Minimum = 0;
+                        Home.Cart.Remove(prod);
+                        Navigation.PopModalAsync();
+                        return true;
+                    }
+                    amountSlide.Maximum = (prod as ProductByQuantity).Quantity;
+                    prodamount.Text = "Units in cart: " + (prod as ProductByQuantity).Quantity.ToString();
+                    return true;
+                }
+            }
+            else
+            {
+                if ((prod as ProductByWeight).Weight-items>0)
+                {
+                    amountSlide.Maximum = (double)(prod as ProductByWeight).Weight;
+                    if ((prod as ProductByWeight).Weight == 0)
+                    {
+                        amountSlide.Minimum = 0;
+                        Home.Cart.Remove(prod);
+                        Navigation.PopModalAsync();
+                        return true;
+                    }
+                    prodamount.Text = "On cart: " + (prod as ProductByWeight).Weight.ToString();
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+}
+
