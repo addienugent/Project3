@@ -1,0 +1,65 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Library.ECommerceApp;
+using Library.ECommerceApp.Models;
+
+namespace EcommerceAppMobile.ViewModels
+{
+    public class ProductViewModel// : INotifyPropertyChanged
+    {
+
+        public ObservableCollection<Product> Inventory { get; set; }
+        public List<Product> ProdInventory = new List<Product>();
+     
+        public ObservableCollection<Product> Cart { get; set; }
+        public List<Product> cart = new List<Product>();
+        public List<ProductByQuantity> prodsByQ;
+        public List<ProductByWeight> prodsByW;
+
+        ReadFile rJ = new ReadFile();
+
+        
+    
+        public ProductViewModel(ObservableCollection<Product> inv)
+        {
+
+            rJ.write();
+            prodsByQ = rJ.readQ();
+            prodsByW = rJ.readW();
+
+            foreach (ProductByQuantity x in prodsByQ)
+            {
+                ProductByQuantity prod = new ProductByQuantity(x.Price, x.Quantity, x.Name, x.Description, x.Id);
+                ProdInventory.Add(prod);
+            }
+
+            foreach (ProductByWeight x in prodsByW)
+            {
+                ProductByWeight prod = new ProductByWeight(x.Price, (int)x.Weight, x.Name, x.Description, x.Id);
+                ProdInventory.Add(prod);
+            }
+
+
+            Inventory = inv;
+
+            foreach (Product prod in ProdInventory)
+            {
+                if (prod is ProductByQuantity)
+                {
+                    if (((ProductByQuantity)prod).Quantity > 0) {Inventory.Add(prod);}
+                }
+                else if (prod is ProductByWeight)
+                {
+                    if (((ProductByWeight)prod).Weight > 0)
+                    { Inventory.Add(prod); }
+                }
+            }
+
+        }
+
+     
+    }
+}
+
