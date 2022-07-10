@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EcommerceAppMobile.Pages.InventoryMainPage"
+    Title="Inventory">
+        
+ 
+        <StackLayout Margin="20">
+        <Label Text="Inventory  Management" FontSize="Title"/>
+
+
+        <Button Text="Add Product By Weight"
+                     x:Name="addWButton"
+                     Clicked="AddW_clicked"/>
+            <Button Text="Add Product By Quantity"
+                     x:Name="addQButton"
+                     Clicked="AddQ_clicked"/>
+
+            <Button Text="Edit Inventory"
+                     x:Name="EditButton"
+                     Clicked="Edit_clicked"/>
+
+            <Label Text="Filename" />
+            <Entry Text="{Binding FileName}" />
+
+
+          <Button Text="Save Inventory"
+                     x:Name="SaveButton"
+                     Clicked="Save_clicked"/>
+
+            <Button Text="Load Inventory"
+                     x:Name="LoadButton"
+                     Clicked="Load_clicked"/>
+
+            
+
+         </StackLayout>
+ 
+</ContentPage>
+
