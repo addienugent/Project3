@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EcommerceAppMobile.Pages.RemoveFromCart">
+    <ContentPage.Content>
+        
+ 
+
+        <StackLayout HorizontalOptions="Center">
+
+            <Label Text="Remove Items From Cart" HorizontalTextAlignment="Center" FontSize="25"/>
+            <Label x:Name="prodName" />
+            <Label x:Name="prodPrice" />
+            <Label x:Name="prodamount" />
+            <Label x:Name="prodDescription"/>
+
+            <Label x:Name="removeSlide" FontSize="25" />
+            <Slider x:Name="amountSlide"
+                    Value="1"
+                    Minimum="0"
+                    Maximum="100"
+                    ValueChanged="Slide_Changed"/>
+                       
+            <Button Text="Remove"
+                     x:Name="removeButton"
+                     Clicked="Remove_Clicked"/>
+             <Button Text="Back"
+                     x:Name="backCartButton"
+                     Clicked="Back_Clicked"/>
+        </StackLayout>
+
+    
+    </ContentPage.Content>
+</ContentPage>
+
