@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EcommerceAppMobile.Pages.Checkout"
+    Title="Checkout">
+    <ContentPage.Content>
+         <ScrollView>
+           <StackLayout>
+        <ListView x:Name="checkoutlist" ItemsSource="{Binding Cart}">
+
+            <ListView.Header>
+                <Label Text="Checkout"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       FontSize="30"/>
+                   </ListView.Header>
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <TextCell Detail = "{Binding Price ,StringFormat= '${0:0.00}'}" Text="{Binding Name}"/>
+                    
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+
+
+            <Label x:Name="total" FontSize="25" HorizontalTextAlignment="End"/>
+            <Label x:Name="tax" FontSize="15" HorizontalTextAlignment="End"/>
+            <Label x:Name="totalTax" FontSize="25" HorizontalTextAlignment="End"/>
+
+            <Label Text = "Save Cart for later just Enter Name:" />
+
+            <Label Text = "Please Enter Credit Card Information" />
+            <Label Text = "Please Enter Shipping Information" />
+            </StackLayout>
+         </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
+
