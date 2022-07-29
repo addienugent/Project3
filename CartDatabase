@@ -1,0 +1,26 @@
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using EcommerceAppMobile.ViewModels;
+using Library.ECommerceApp;
+using Library.ECommerceApp.Models;
+using Xamarin.Forms;
+
+namespace EcommerceAppMobile.Pages
+{
+  public class CartDatabase
+    {
+    
+        public void Post(Product p)
+        {
+            var result = new Filebase().UpdateAdd(p, 2);
+        }
+    
+        // get carts    
+        public List<Product> Get()
+        {
+            return new Filebase().Cart;
+        }
+        }
+       
+    }
